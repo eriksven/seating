@@ -1,5 +1,6 @@
+#!/bin/bash
 # This file is maintained by velocitas CLI, do not modify manually. Change settings in .velocitas.json
-# Copyright (c) 2023 Robert Bosch GmbH
+# Copyright (c) 2022 Robert Bosch GmbH and Microsoft Corporation
 #
 # This program and the accompanying materials are made available under the
 # terms of the Apache License, Version 2.0 which is available at
@@ -13,32 +14,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-name: Devcontainer check
-
-on:
-  workflow_dispatch:
-  push:
-    # Run only on branches/commits and not tags
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: "0 4 * * *"
-
-
-jobs:
-  automated-tests:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build devcontainer and run automated tests
-        uses: devcontainers/ci@v0.3
-        with:
-          runCmd: |
-            pip3 install -r .devcontainer/tests/automated_tests/requirements.txt
-            pytest -sx .devcontainer/tests
+echo "#######################################################"
+echo "### Checking container creation                     ###"
+echo "#######################################################"
+useradd vscode --password vscode -m
+usermod -aG sudo vscode

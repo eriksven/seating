@@ -1,5 +1,5 @@
 # This file is maintained by velocitas CLI, do not modify manually. Change settings in .velocitas.json
-# Copyright (c) 2023 Robert Bosch GmbH
+# Copyright (c) 2022 Robert Bosch GmbH and Microsoft Corporation
 #
 # This program and the accompanying materials are made available under the
 # terms of the Apache License, Version 2.0 which is available at
@@ -13,32 +13,16 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-name: Devcontainer check
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
-on:
-  workflow_dispatch:
-  push:
-    # Run only on branches/commits and not tags
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: "0 4 * * *"
-
-
-jobs:
-  automated-tests:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build devcontainer and run automated tests
-        uses: devcontainers/ci@v0.3
-        with:
-          runCmd: |
-            pip3 install -r .devcontainer/tests/automated_tests/requirements.txt
-            pytest -sx .devcontainer/tests
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    # Disable dependencies version updates
+    open-pull-requests-limit: 0
